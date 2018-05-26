@@ -45,10 +45,10 @@ async def highfive(ctx, chosen_user: discord.Member):
     highfive_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
     if chosen_user2 == highfive_author:
-        await bot.say('You uhhhh want to do what {}??'.format(highfive_author))
+        await bot.say(':hand_splayed: You uhhhh want to do what {}??'.format(highfive_author))
         await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selffive.gif')
     else:
-        await bot.say('{} high fived {}'.format(highfive_author, chosen_user2))
+        await bot.say(':hand_splayed: {} high fived {}'.format(highfive_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive1.gif')
@@ -64,10 +64,10 @@ async def slap(ctx, chosen_user: discord.Member):
     slap_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
     if chosen_user2 == slap_author:
-        await bot.say('You uhhhh want to do what {}??'.format(slap_author))
+        await bot.say(':raised_back_of_hand: You uhhhh want to do what {}??'.format(slap_author))
         await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap_yourself.gif')
     else:
-        await bot.say('{} slapped {}'.format(slap_author, chosen_user2))
+        await bot.say(':raised_back_of_hand: {} slapped {}'.format(slap_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap1.gif')
@@ -84,7 +84,7 @@ async def cool(ctx, chosen_user: discord.Member):
     chosen_user2 = chosen_user.mention
     cool_message = await bot.say('{} wants to see if {} is cool'.format(cool_author, chosen_user2))
     await asyncio.sleep(1.7)
-    cool_or_not_cool = ["cool", "cool", "cool", "kinda cool", "just OK", "not cool"]
+    cool_or_not_cool = [":cool:", "cool", "cool", "kinda cool", "just OK", "not cool"]
     random_cool_not_cool = '{} is {}'.format(chosen_user2, random.choice(cool_or_not_cool))
     await bot.edit_message(cool_message, random_cool_not_cool)
 
@@ -133,6 +133,10 @@ async def d20():
 @bot.command(aliases=["commands"])
 async def command():
     await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** \n**2.Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
+
+@bot.command(aliases=["hi"])
+async def hello():
+    await bot.say('Hello! :speech_balloon:')
 
 file_path = os.path.join('/Users/savagecoder/Desktop/Programming/pass.json')
 with open(file_path, 'r') as token_data:
