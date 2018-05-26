@@ -8,11 +8,6 @@ import os
 import math
 
 bot = commands.Bot(command_prefix='.', description='testing')
-'''
-client = discord.Client()
-@bot.event
-async def 
-bot.change_presence(game=discord.Game(name='with my code'))'''
 
 @bot.event
 async def on_ready():
