@@ -42,41 +42,41 @@ async def squareroot(number : float):
 
 @bot.group(pass_context=True, aliases=["high5"])
 async def highfive(ctx, chosen_user: discord.Member):
-            highfive_author = ctx.message.author.mention
-            chosen_user2 = chosen_user.mention
-            if chosen_user2 == highfive_author:
-                await bot.say('You uhhhh want to do what {}??'.format(highfive_author))
-                await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selffive.gif')
-            else:
-                await bot.say('{} high fived {}'.format(highfive_author, chosen_user2))
-                random_gif = random.randint(1,12)
-                if random_gif <= 3:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive1.gif')
-                elif 4 <= random_gif <= 6:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive2.gif')
-                elif 7 <= random_gif <= 9:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive3.gif')
-                else:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive4.gif')
+    highfive_author = ctx.message.author.mention
+    chosen_user2 = chosen_user.mention
+    if chosen_user2 == highfive_author:
+        await bot.say('You uhhhh want to do what {}??'.format(highfive_author))
+        await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selffive.gif')
+    else:
+        await bot.say('{} high fived {}'.format(highfive_author, chosen_user2))
+        random_gif = random.randint(1,12)
+        if random_gif <= 3:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive1.gif')
+        elif 4 <= random_gif <= 6:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive2.gif')
+        elif 7 <= random_gif <= 9:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive3.gif')
+        else:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive4.gif')
 
 @bot.group(pass_context=True)
 async def slap(ctx, chosen_user: discord.Member):
-            slap_author = ctx.message.author.mention
-            chosen_user2 = chosen_user.mention
-            if chosen_user2 == slap_author:
-                await bot.say('You uhhhh want to do what {}??'.format(slap_author))
-                await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap_yourself.gif')
-            else:
-                await bot.say('{} slapped {}'.format(slap_author, chosen_user2))
-                random_gif = random.randint(1,12)
-                if random_gif <= 3:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap1.gif')
-                elif 4 <= random_gif <= 6:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap2.gif')
-                elif 7 <= random_gif <= 9:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap3.gif')
-                else:
-                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
+    slap_author = ctx.message.author.mention
+    chosen_user2 = chosen_user.mention
+    if chosen_user2 == slap_author:
+        await bot.say('You uhhhh want to do what {}??'.format(slap_author))
+        await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap_yourself.gif')
+    else:
+        await bot.say('{} slapped {}'.format(slap_author, chosen_user2))
+        random_gif = random.randint(1,12)
+        if random_gif <= 3:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap1.gif')
+        elif 4 <= random_gif <= 6:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap2.gif')
+        elif 7 <= random_gif <= 9:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap3.gif')
+        else:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
 
 @bot.group(pass_context=True)
 async def cool(ctx, chosen_user: discord.Member):
@@ -96,7 +96,7 @@ async def d4():
     await bot.edit_message(roll_message, random.choice(d4_roll))
 
 @bot.command()
-async def d6():
+async def d6(aliases=["dice"]):
     roll_message = await bot.say('rolling ...')
     d6_roll = ["1", "2", "3", "4", "5", "6"]
     await asyncio.sleep(1)
