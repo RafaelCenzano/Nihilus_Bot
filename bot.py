@@ -40,24 +40,53 @@ async def squareroot(number : float):
     else:
         await bot.say('The number is negative or will give a nonreal number')
 
-@bot.group(pass_context=True)
+@bot.group(pass_context=True, aliases=["high5"])
 async def highfive(ctx, chosen_user: discord.Member):
             highfive_author = ctx.message.author.mention
             chosen_user2 = chosen_user.mention
             if chosen_user2 == highfive_author:
-                await bot.send_file(channel, 'my_image.png')
+                await bot.say('You uhhhh want to do what {}??'.format(highfive_author))
+                await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selffive.gif')
             else:
-                await bot.say('{} highfived {}'.format(highfive_author, chosen_user2))
-                await bot.send_file(channel, 'my_image.png')
-'''
-        await client.send_message(message.channel, '**{} has been slapped**').format(player)
-#       embed.set_image(url='https://i.makeagif.com/media/10-30-2015/Up5MqS.gif')'''
+                await bot.say('{} high fived {}'.format(highfive_author, chosen_user2))
+                random_gif = random.randint(1,12)
+                if random_gif <= 3:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive1.gif')
+                elif 4 <= random_gif <= 6:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive2.gif')
+                elif 7 <= random_gif <= 9:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive3.gif')
+                else:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive4.gif')
 
 @bot.group(pass_context=True)
-async def cool(chosen_userc):
-    chosen_user_not_objectc = chosen_userc.subcommand_passed
-    cool_or_not_cool = ["cool", "cool", "cool", "kinda cool", "just OK" "not cool"]
-    await bot.say('{} is {}'.format(chosen_user_not_objectc, random.choices(cool_or_not_cool)[0]))
+async def slap(ctx, chosen_user: discord.Member):
+            slap_author = ctx.message.author.mention
+            chosen_user2 = chosen_user.mention
+            if chosen_user2 == slap_author:
+                await bot.say('You uhhhh want to do what {}??'.format(slap_author))
+                await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap_yourself.gif')
+            else:
+                await bot.say('{} slapped {}'.format(slap_author, chosen_user2))
+                random_gif = random.randint(1,12)
+                if random_gif <= 3:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap1.gif')
+                elif 4 <= random_gif <= 6:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap2.gif')
+                elif 7 <= random_gif <= 9:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap3.gif')
+                else:
+                    await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
+
+@bot.group(pass_context=True)
+async def cool(ctx, chosen_user: discord.Member):
+    cool_author = ctx.message.author.mention
+    chosen_user2 = chosen_user.mention
+    cool_message = await bot.say('{} wants to see if {} is cool'.format(cool_author, chosen_user2))
+    await asyncio.sleep(1.7)
+    cool_or_not_cool = ["cool", "cool", "cool", "kinda cool", "just OK", "not cool"]
+    random_cool_not_cool = '{} is {}'.format(chosen_user2, random.choice(cool_or_not_cool))
+    await bot.edit_message(cool_message, random_cool_not_cool)
 
 @bot.command()
 async def d4():
