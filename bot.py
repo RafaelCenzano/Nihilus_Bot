@@ -50,25 +50,11 @@ async def highfive(ctx, chosen_user: discord.Member):
             highfive_author = ctx.message.author.mention
             chosen_user2 = chosen_user.mention
             if chosen_user2 == highfive_author:
-                
-            await bot.say('{} highfived {}'.format(highfive_author, chosen_user2))
+                await bot.send_file(channel, 'my_image.png')
+            else:
+                await bot.say('{} highfived {}'.format(highfive_author, chosen_user2))
+                await bot.send_file(channel, 'my_image.png')
 '''
-
-@bot.group(pass_context=True)
-async def highfive(ctx):
-    highfive_author = message.author.mention
-    chosen_user_not_objecth = ctx.subcommand_passed
-    await bot.say('{} highfived {}'.format(highfive_author, chosen_user_not_objecth))
-
-
-use ctx
-to get the author
-then .mention
-
-    elif message.content.startswith('.highfive'):
-        embed.set_image(url='http://cdn.smosh.com/wp-content/uploads/2016/01/high-five-mass-fives.gif')
-            await client.send_message(gif)
-    elif message.content.startswith('.slap' [player] ):
         await client.send_message(message.channel, '**{} has been slapped**').format(player)
 #       embed.set_image(url='https://i.makeagif.com/media/10-30-2015/Up5MqS.gif')'''
 
