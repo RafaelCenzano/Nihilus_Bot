@@ -40,33 +40,24 @@ async def squareroot(number : float):
     else:
         await bot.say('The number is negative or will give a nonreal number')
 
-def gif_sender1(self_image_name, to_self_message, ctx):
-        bot.say(to_self_message)
-        bot.send_file(ctx.message.channel, 'Images_and_Gifs/{}.gif').format(self_image_name)
-
-def gif_sender2(image_name, message, ctx):
-        bot.say(message)
-        random_gif = random.randint(1,12)
-        if random_gif <= 3:
-            bot.send_file(ctx.message.channel, 'Images_and_Gifs/{}}1.gif').format(image_name)
-        elif 4 <= random_gif <= 6:
-            bot.send_file(ctx.message.channel, 'Images_and_Gifs/{}}2.gif').format(image_name)
-        elif 7 <= random_gif <= 9:
-            bot.send_file(ctx.message.channel, 'Images_and_Gifs/{}}3.gif').format(image_name)
-        else:
-            bot.send_file(ctx.message.channel, 'Images_and_Gifs/{}4.gif').format(image_name)
-
 @bot.group(pass_context=True)
 async def punch(ctx, chosen_user: discord.Member):
-    author = ctx.message.author.mention
-    #chosen_user_2 = chosen_user.mention
-    to_self_message = ':fist: You uhhhh want to do what {}??'.format(author)
-    message_general = ':fist: {} punched {}'.format(author, chosen_user)
-#    is_author_user = chosen_user == author
-    if chosen_user == author:
-        await gif_sender1('selfpunch', to_self_message, ctx)
+    punch_author = ctx.message.author.mention
+    chosen_user2 = chosen_user.mention
+    if chosen_user2 == punch_author:
+        await bot.say(':fist: You uhhhh want to do what {}??'.format(punch_author))
+        await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selfpunch.gif')
     else:
-        await gif_sender2('punch', message_general, ctx)
+        await bot.say(':fist: {} punched {}'.format(punch_author, chosen_user2))
+        random_gif = random.randint(1,12)
+        if random_gif <= 3:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/punch1.gif')
+        elif 4 <= random_gif <= 6:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/punch2.gif')
+        elif 7 <= random_gif <= 9:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/punch3.gif')
+        else:
+            await bot.send_file(ctx.message.channel, 'Images_and_Gifs/punch4.gif')
 
 @bot.group(pass_context=True, aliases=["high5"])
 async def highfive(ctx, chosen_user: discord.Member):
@@ -172,11 +163,11 @@ async def credits(ctx):
     player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
     with open(player_data_path, 'r') as profile_data:
         data = json.load(profile_data)
-        user_profile = data['User_data'][credits_author]
+        user_profile = data['User_data'][0][credits_author]
     if user_profile == True:
         with open(player_data_path, 'r') as credit_data:
             data = json.load(credit_data)
-            user_credits = data['User_data'][credits_author]['credits']
+            user_credits = data['User_data'][credits_author][0]['credits']
         await bot.say(':credit_card: @{} you have, {}credits!').format(credits_author, user_credits)
         print(credits_author)
     else:
