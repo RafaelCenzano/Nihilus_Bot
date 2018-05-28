@@ -9,5 +9,8 @@ with open(player_data_path, 'r') as profile_data:
     daily_data1 = json.load(profile_data)
 #open file to write
 with open(player_data_path, 'w') as outfile:
-    daily_data1['userdata'][]['daily'] = 0
+    for user in daily_data1['userdata']:
+        daily_data1['userdata'][user]['daily'] = 0
+        daily_data1['userdata'][user]['rep'] = 0
+        daily_data1['userdata'][user]['repped'] = 0
     json.dump(daily_data1, outfile)
