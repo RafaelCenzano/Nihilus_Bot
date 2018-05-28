@@ -1,7 +1,0 @@
-Read If you are going to use daily commands.
-
-clear_daily.py ahouls be on a scedule to run at a certain time EVERYDAY so it resets the score for everyone and everyone can do dailys the next day
-
-schedule app example is crontab
-
-
