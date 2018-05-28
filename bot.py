@@ -194,7 +194,7 @@ async def daily(ctx):
                 if daily_data_level_check['userdata'][daily_author]['xp'] >= 200:
                     with open(player_data_path, 'w') as outfile:
                         daily_data1['userdata'][daily_author]['level'] += 1
-                        daily_data1['userdata'][daily_author]['xp'] == 0
+                        daily_data1['userdata'][daily_author]['xp'] = 0
                         json.dump(daily_data1, outfile)
                     with open(player_data_path, 'r') as level_data:
                         daily_data_level = json.load(level_data)
