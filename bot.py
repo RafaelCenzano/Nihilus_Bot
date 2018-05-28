@@ -194,12 +194,7 @@ async def xp(ctx):
     with open(player_data_path, 'r') as profile_data:
         profile_data1 = json.load(profile_data)
     if xp_author in profile_data1['userdata']:
-        with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][xp_author]['xp'] += 1
-            json.dump(profile_data1, outfile)
-        with open(player_data_path, 'r') as level_data:
-            data_xp_check = json.load(level_data)
-        current_xp = data_xp_check['userdata'][xp_author]['xp']
+        current_xp = profile_data1['userdata'][xp_author]['xp']
         await bot.say(f'{xp_author_mention} has {current_xp}/200xp!')
         with open(player_data_path, 'r') as level_data:
             daily_data_level_check = json.load(level_data)
