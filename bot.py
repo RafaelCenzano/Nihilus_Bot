@@ -16,30 +16,6 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-@bot.command()
-async def add(first_number : float, second_number : float):
-    await bot.say(first_number + second_number)
-
-@bot.command()
-async def subtract(first_number : float, second_number : float):
-    await bot.say(first_number - second_number)
-
-@bot.command()
-async def multiply(first_number : float, second_number : float):
-    await bot.say(first_number * second_number)
-
-@bot.command()
-async def divide(first_number : float, second_number : float):
-    await bot.say(first_number / second_number)
-
-@bot.command(aliases=["sqrt"])
-async def squareroot(number : float):
-    if number > 0:
-        squarerooted_number = math.sqrt(number)
-        await bot.say(squarerooted_number)
-    else:
-        await bot.say('The number is negative or will give a nonreal number')
-
 @bot.group(pass_context=True)
 async def punch(ctx, chosen_user: discord.Member):
     punch_author = ctx.message.author.mention
@@ -107,6 +83,38 @@ async def cool(ctx, chosen_user: discord.Member):
     random_cool_not_cool = '{} is {}'.format(chosen_user2, random.choice(cool_or_not_cool))
     await bot.edit_message(cool_message, random_cool_not_cool)
 
+@bot.command(aliases=["commands"])
+async def command():
+    await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap`\n**2. Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
+
+@bot.command(aliases=["hi"])
+async def hello():
+    await bot.say('Hello! :speech_balloon:')
+
+@bot.command()
+async def add(first_number : float, second_number : float):
+    await bot.say(first_number + second_number)
+
+@bot.command()
+async def subtract(first_number : float, second_number : float):
+    await bot.say(first_number - second_number)
+
+@bot.command()
+async def multiply(first_number : float, second_number : float):
+    await bot.say(first_number * second_number)
+
+@bot.command()
+async def divide(first_number : float, second_number : float):
+    await bot.say(first_number / second_number)
+
+@bot.command(aliases=["sqrt"])
+async def squareroot(number : float):
+    if number > 0:
+        squarerooted_number = math.sqrt(number)
+        await bot.say(squarerooted_number)
+    else:
+        await bot.say('The number is negative or will give a nonreal number')
+
 @bot.command()
 async def d4():
     roll_message = await bot.say('rolling ...')
@@ -149,29 +157,22 @@ async def d20():
     await asyncio.sleep(1)
     await bot.edit_message(roll_message, random.choice(d20_roll))
 
-@bot.command(aliases=["commands"])
-async def command():
-    await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap`\n**2. Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
-
-@bot.command(aliases=["hi"])
-async def hello():
-    await bot.say('Hello! :speech_balloon:')
-
-@bot.command( pass_context=True, aliases=["money"])
+@bot.command(pass_context=True, aliases=["money"])
 async def credits(ctx):
-    credits_author = ctx.message.author
+    credits_author = str(ctx.message.author)
+    credits_author_mention = ctx.message.author.mention
     player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
     with open(player_data_path, 'r') as profile_data:
-        data = json.load(profile_data)
-        user_profile = data['User_data'][0][credits_author]
-    if user_profile == True:
-        with open(player_data_path, 'r') as credit_data:
-            data = json.load(credit_data)
-            user_credits = data['User_data'][credits_author][0]['credits']
-        await bot.say(':credit_card: @{} you have, {}credits!').format(credits_author, user_credits)
-        print(credits_author)
+        profile_data = json.load(profile_data)
+        profile_user = profile_data['userdata']
+    if credits_author in profile_user:
+        user_credits = profile_data['userdata'][credits_author]['credits']
+        await bot.say(f':credit_card: {credits_author_mention} has {user_credits} credits!')
     else:
-        pass
+        await bot.say('The self write of user profile and data not made yet')
+        with open('data.txt', 'w') as outfile:
+            user_data = 
+            json.dump(user_data, outfile)
 
 file_path = os.path.join('/Users/savagecoder/Desktop/Programming/pass.json')
 with open(file_path, 'r') as token_data:
