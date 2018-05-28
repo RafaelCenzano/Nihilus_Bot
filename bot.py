@@ -8,6 +8,7 @@ import os
 import math
 
 bot = commands.Bot(command_prefix='.', description='testing')
+player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
 
 @bot.event
 async def on_ready():
@@ -161,23 +162,98 @@ async def d20():
 async def credits(ctx):
     credits_author = str(ctx.message.author)
     credits_author_mention = ctx.message.author.mention
-    player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
     with open(player_data_path, 'r') as profile_data:
         profile_data1 = json.load(profile_data)
     if credits_author in profile_data1['userdata']:
         user_credits = profile_data1['userdata'][credits_author]['credits']
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][credits_author]['xp'] += 1
+            json.dump(profile_data1, outfile)
         await bot.say(f':credit_card: {credits_author_mention} has {user_credits} credits!')
+        with open(player_data_path, 'r') as level_data:
+                    daily_data_level_check = json.load(level_data)
+        if daily_data_level_check['userdata'][credits_author]['xp'] >= 200:
+            with open(player_data_path, 'w') as outfile:
+                daily_data1['userdata'][credits_author]['level'] += 1
+                daily_data1['userdata'][credits_author]['xp'] = 0
+                json.dump(daily_data1, outfile)
+            with open(player_data_path, 'r') as level_data:
+                daily_data_level = json.load(level_data)
+            daily_new_level = daily_data_level['userdata'][credits_author]['level']
+            await bot.say(f'{daily_author_mention} has leveled up to {daily_new_level}')
     else:
         with open(player_data_path, 'w') as outfile:
             profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":0, "streak":0, "rep":0}
             json.dump(profile_data1, outfile)
         await bot.say(f':credit_card: {credits_author_mention} has 0 credits!')
 
+@bot.command(pass_context=True, aliases=["progress"])
+async def xp(ctx):
+    xp_author = str(ctx.message.author)
+    xp_author_mention = ctx.message.author.mention
+    with open(player_data_path, 'r') as profile_data:
+        profile_data1 = json.load(profile_data)
+    if xp_author in profile_data1['userdata']:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][xp_author]['xp'] += 1
+            json.dump(profile_data1, outfile)
+        with open(player_data_path, 'r') as level_data:
+            data_xp_check = json.load(level_data)
+        current_xp = data_xp_check['userdata'][xp_author]['xp']
+        await bot.say(f'{xp_author_mention} has {current_xp}/200xp!')
+        with open(player_data_path, 'r') as level_data:
+            daily_data_level_check = json.load(level_data)
+        if daily_data_level_check['userdata'][xp_author]['xp'] >= 200:
+            with open(player_data_path, 'w') as outfile:
+                daily_data1['userdata'][xp_author]['level'] += 1
+                daily_data1['userdata'][xp_author]['xp'] = 0
+                json.dump(daily_data1, outfile)
+            with open(player_data_path, 'r') as level_data:
+                daily_data_level = json.load(level_data)
+            daily_new_level = daily_data_level['userdata'][xp_author]['level']
+            await bot.say(f'{daily_author_mention} has leveled up to {daily_new_level}')
+    else:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][xp_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0}
+            json.dump(profile_data1, outfile)
+        await bot.say(f'{xp_author_mention} has 1/200xp!')
+
+@bot.command(pass_context=True)
+async def level(ctx):
+    level_author = str(ctx.message.author)
+    level_author_mention = ctx.message.author.mention
+    with open(player_data_path, 'r') as profile_data:
+        profile_data1 = json.load(profile_data)
+    if level_author in profile_data1['userdata']:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][level_author]['xp'] += 1
+            json.dump(profile_data1, outfile)
+        with open(player_data_path, 'r') as level_data:
+            daily_data_level_check = json.load(level_data)
+        if daily_data_level_check['userdata'][level_author]['xp'] >= 200:
+            with open(player_data_path, 'w') as outfile:
+                daily_data1['userdata'][level_author]['level'] += 1
+                daily_data1['userdata'][level_author]['xp'] = 0
+                json.dump(daily_data1, outfile)
+            with open(player_data_path, 'r') as level_data:
+                daily_data_level = json.load(level_data)
+            daily_new_level = daily_data_level['userdata'][level_author]['level']
+            await bot.say(f'{level_author_mention} is level {daily_new_level}!')
+        else:
+            with open(player_data_path, 'r') as level_data:
+                daily_data_level = json.load(level_data)
+            daily_new_level = daily_data_level['userdata'][level_author]['level']
+            await bot.say(f'{level_author_mention} is level {daily_new_level}!')
+    else:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][level_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0}
+            json.dump(profile_data1, outfile)
+        await bot.say(f'{level_author_mention} is level 1!')
+
 @bot.command(pass_context=True)
 async def daily(ctx):
     daily_author = str(ctx.message.author)
     daily_author_mention = ctx.message.author.mention
-    player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
     with open(player_data_path, 'r') as profile_data:
         daily_data1 = json.load(profile_data)
     if daily_author in daily_data1['userdata']:
