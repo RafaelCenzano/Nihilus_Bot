@@ -38,7 +38,7 @@ async def add_1_xp(ctx):
     with open(player_data_path, 'r') as profile_data:
         command_data1 = json.load(profile_data)
     with open(player_data_path, 'w') as outfile:
-        command_data1['userdata'][command_author]['xp'] += 0
+        command_data1['userdata'][command_author]['xp'] += 1
         json.dump(command_data1, outfile)
 
 @bot.group(pass_context=True)
@@ -151,10 +151,10 @@ async def squareroot(ctx, number : float):
     if number > 0:
         squarerooted_number = math.sqrt(number)
         await bot.say(squarerooted_number)
+        await add_1_xp(ctx)
         await check_level(ctx)
     else:
         await bot.say('The number is negative or will give a nonreal number')
-        await add_1_xp(ctx)
         await check_level(ctx)
 
 @bot.command()
