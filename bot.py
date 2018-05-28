@@ -157,22 +157,65 @@ async def d20():
     await asyncio.sleep(1)
     await bot.edit_message(roll_message, random.choice(d20_roll))
 
-@bot.command(pass_context=True, aliases=["money"])
+@bot.command(pass_context=True, aliases=["money", "currency"])
 async def credits(ctx):
     credits_author = str(ctx.message.author)
     credits_author_mention = ctx.message.author.mention
     player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
     with open(player_data_path, 'r') as profile_data:
-        profile_data = json.load(profile_data)
-        profile_user = profile_data['userdata']
-    if credits_author in profile_user:
-        user_credits = profile_data['userdata'][credits_author]['credits']
+        profile_data1 = json.load(profile_data)
+    if credits_author in profile_data1['userdata']:
+        user_credits = profile_data1['userdata'][credits_author]['credits']
         await bot.say(f':credit_card: {credits_author_mention} has {user_credits} credits!')
     else:
-        await bot.say('The self write of user profile and data not made yet')
-        with open('data.txt', 'w') as outfile:
-            user_data = 
-            json.dump(user_data, outfile)
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":0, "streak":0, "rep":0}
+            json.dump(profile_data1, outfile)
+        await bot.say(f':credit_card: {credits_author_mention} has 0 credits!')
+
+@bot.command(pass_context=True)
+async def daily(ctx):
+    daily_author = str(ctx.message.author)
+    daily_author_mention = ctx.message.author.mention
+    player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
+    with open(player_data_path, 'r') as profile_data:
+        daily_data1 = json.load(profile_data)
+    if daily_author in daily_data1['userdata']:
+        if daily_data1['userdata'][daily_author]['daily'] != 1:
+            if daily_data1['userdata'][daily_author]['level'] <= 25:
+                await bot.say(f'{daily_author_mention} got 150 credits for their daily')
+                with open(player_data_path, 'w') as outfile:
+                    daily_data1['userdata'][daily_author]['credits'] += 150
+                    daily_data1['userdata'][daily_author]['daily'] += 1
+                    daily_data1['userdata'][daily_author]['xp'] += 5
+                    json.dump(daily_data1, outfile)
+                with open(player_data_path, 'r') as level_data:
+                    daily_data_level_check = json.load(level_data)
+                if daily_data_level_check['userdata'][daily_author]['xp'] >= 200:
+                    with open(player_data_path, 'w') as outfile:
+                        daily_data1['userdata'][daily_author]['level'] += 1
+                        daily_data1['userdata'][daily_author]['xp'] == 0
+                        json.dump(daily_data1, outfile)
+                    with open(player_data_path, 'r') as level_data:
+                        daily_data_level = json.load(level_data)
+                    daily_new_level = daily_data_level['userdata'][daily_author]['level']
+                    await bot.say(f'{daily_author_mention} has leveled up to {daily_new_level}')
+            else:
+                await bot.say(f'{daily_author_mention} got 200 credits for their daily')
+                with open(player_data_path, 'w') as outfile:
+                    daily_data1['userdata'][daily_author]['credits'] += 150
+                    daily_data1['userdata'][daily_author]['daily'] += 1
+                    daily_data1['userdata'][daily_author]['xp'] += 5
+                    json.dump(daily_data1, outfile)
+        else:
+            await bot.say('You redeemed your daily already')
+        #user_daily = profile_data1['userdata'][credits_author]['daily']
+        #await bot.say(f':credit_card: {daily_author_mention} has {user_credits} credits!')
+    else:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][credits_author] = {"daily":1, "credits":150, "level":1, "xp":5, "streak":0, "rep":0}
+            json.dump(profile_data1, outfile)
+        await bot.say(f'{daily_author_mention} got 150 credits for their daily')
 
 file_path = os.path.join('/Users/savagecoder/Desktop/Programming/pass.json')
 with open(file_path, 'r') as token_data:
