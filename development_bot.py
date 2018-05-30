@@ -120,12 +120,12 @@ async def cool(ctx, chosen_user: discord.Member):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command(aliases=["commands"])
+@bot.command(pass_context=True, aliases=["commands"])
 async def command():
     await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap`\n**2. Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
     await check_level(ctx)
 
-@bot.command(aliases=["hi"])
+@bot.command(pass_context=True, aliases=["hi"])
 async def hello():
     await bot.say('Hello! :speech_balloon:')
     await check_level(ctx)
@@ -150,7 +150,7 @@ async def divide(ctx, first_number : float, second_number : float):
     await bot.say(first_number / second_number)
     await add_1_xp(ctx)
     await check_level(ctx)
-@bot.command(aliases=["sqrt"])
+@bot.command(pass_context=True, aliases=["sqrt"])
 async def squareroot(ctx, number : float):
     if number > 0:
         squarerooted_number = math.sqrt(number)
@@ -161,7 +161,7 @@ async def squareroot(ctx, number : float):
         await bot.say('The number is negative or will give a nonreal number')
         await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d4(ctx):
     roll_message = await bot.say('rolling ...')
     d4_roll = ["1", "2", "3", "4"]
@@ -170,7 +170,7 @@ async def d4(ctx):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d6(ctx, aliases=["dice"]):
     roll_message = await bot.say('rolling ...')
     d6_roll = ["1", "2", "3", "4", "5", "6"]
@@ -179,7 +179,7 @@ async def d6(ctx, aliases=["dice"]):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d8(ctx):
     roll_message = await bot.say('rolling ...')
     d8_roll = ["1", "2", "3", "4", "5", "6", "7", "8"]
@@ -188,7 +188,7 @@ async def d8(ctx):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d10(ctx):
     roll_message = await bot.say('rolling ...')
     d10_roll = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
@@ -197,7 +197,7 @@ async def d10(ctx):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d12(ctx):
     roll_message = await bot.say('rolling ...')
     d12_roll = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
@@ -206,7 +206,7 @@ async def d12(ctx):
     await add_1_xp(ctx)
     await check_level(ctx)
 
-@bot.command()
+@bot.command(pass_context=True)
 async def d20(ctx):
     roll_message = await bot.say('rolling ...')
     d20_roll = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "**20!!, Critical Hit**"]
@@ -253,7 +253,7 @@ async def credits(ctx):
         await check_level(ctx)
     else:
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":0, "streak":0, "rep":0}
+            profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f':credit_card: {credits_author_mention} has 0 credits!')
 
@@ -271,7 +271,7 @@ async def xp(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][xp_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
+            profile_data1['userdata'][xp_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{xp_author_mention} has 1/200xp!')
 
@@ -305,7 +305,7 @@ async def level(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][level_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
+            profile_data1['userdata'][level_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{level_author_mention} is level 1!')
 
@@ -338,7 +338,7 @@ async def daily(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][daily_author] = {"daily":1, "credits":200, "level":1, "xp":5, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
+            profile_data1['userdata'][daily_author] = {"daily":1, "credits":200, "level":1, "xp":5, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{daily_author_mention} got 200 credits for their daily')
 
