@@ -271,7 +271,7 @@ async def xp(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][xp_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0}
+            profile_data1['userdata'][xp_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{xp_author_mention} has 1/200xp!')
 
@@ -305,7 +305,7 @@ async def level(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][level_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0}
+            profile_data1['userdata'][level_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{level_author_mention} is level 1!')
 
@@ -338,7 +338,7 @@ async def daily(ctx):
         with open(player_data_path, 'r') as profile_data:
             profile_data1 = json.load(profile_data)
         with open(player_data_path, 'w') as outfile:
-            profile_data1['userdata'][daily_author] = {"daily":1, "credits":200, "level":1, "xp":5, "streak":0, "rep":0}
+            profile_data1['userdata'][daily_author] = {"daily":1, "credits":200, "level":1, "xp":5, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0 "weapon":"fist", "damage":1}
             json.dump(profile_data1, outfile)
         await bot.say(f'{daily_author_mention} got 200 credits for their daily')
 
