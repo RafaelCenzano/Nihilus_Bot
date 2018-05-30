@@ -48,9 +48,10 @@ async def punch(ctx, chosen_user: discord.Member):
     if chosen_user2 == punch_author:
         await bot.say(':fist: You uhhhh want to do what {}??'.format(punch_author))
         await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selfpunch.gif')
+        await add_1_xp(ctx)
         await check_level(ctx)
     else:
-        await check_level(ctx)
+        await add_1_xp(ctx)
         await bot.say(':fist: {} punched {}'.format(punch_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -69,9 +70,10 @@ async def highfive(ctx, chosen_user: discord.Member):
     if chosen_user2 == highfive_author:
         await bot.say(':hand_splayed: You uhhhh want to do what {}??'.format(highfive_author))
         await bot.send_file(ctx.message.channel, 'Images_and_Gifs/selffive.gif')
+        await add_1_xp(ctx)
         await check_level(ctx)
     else:
-        await check_level(ctx)
+        await add_1_xp(ctx)
         await bot.say(':hand_splayed: {} high fived {}'.format(highfive_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -90,9 +92,10 @@ async def slap(ctx, chosen_user: discord.Member):
     if chosen_user2 == slap_author:
         await bot.say(':raised_back_of_hand: You uhhhh want to do what {}??'.format(slap_author))
         await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap_yourself.gif')
+        await add_1_xp(ctx)
         await check_level(ctx)
     else:
-        await check_level(ctx)
+        await add_1_xp(ctx)
         await bot.say(':raised_back_of_hand: {} slapped {}'.format(slap_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -103,6 +106,7 @@ async def slap(ctx, chosen_user: discord.Member):
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap3.gif')
         else:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
+
 
 @bot.group(pass_context=True)
 async def cool(ctx, chosen_user: discord.Member):
@@ -210,6 +214,27 @@ async def d20(ctx):
     await bot.edit_message(roll_message, random.choice(d20_roll))
     await add_1_xp(ctx)
     await check_level(ctx)
+'''
+@bot.command(pass_context=True, aliases=["money", "currency"])
+async def rep(ctx):
+    credits_author = str(ctx.message.author)
+    credits_author_mention = ctx.message.author.mention
+    with open(player_data_path, 'r') as profile_data:
+        profile_data1 = json.load(profile_data)
+    if credits_author in profile_data1['userdata']:
+        user_credits = profile_data1['userdata'][credits_author]['credits']
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][credits_author]['xp'] += 1
+            json.dump(profile_data1, outfile)
+        await bot.say(f':credit_card: {credits_author_mention} has {user_credits} credits!')
+        with open(player_data_path, 'r') as level_data:
+                    daily_data_level_check = json.load(level_data)
+        await check_level(ctx)
+    else:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":0, "streak":0, "rep":0}
+            json.dump(profile_data1, outfile)
+        await bot.say(f':credit_card: {credits_author_mention} has 0 credits!')'''
 
 @bot.command(pass_context=True, aliases=["money", "currency"])
 async def credits(ctx):
