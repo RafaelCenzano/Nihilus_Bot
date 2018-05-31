@@ -22,7 +22,7 @@ async def check_level(ctx):
     command_author_mention = ctx.message.author.mention
     with open(player_data_path, 'r') as profile_data:
         command_data1 = json.load(profile_data)
-    if rep_author in profile_data1['userdata']:
+    if command_author in profile_data1['userdata']:
         if command_data1['userdata'][command_author]['xp'] >= 200:
             with open(player_data_path, 'w') as outfile:
                 command_data1['userdata'][command_author]['level'] += 1
@@ -130,14 +130,12 @@ async def rep(ctx, chosen_user: discord.Member):
         check_if_repped = profile_data1['userdata'][rep_author]['repped']
         if check_if_repped == 0:
             if chosen_user_rep in profile_data1['userdata']:
-                print ('work')
                 with open(player_data_path, 'w') as outfile:
                     profile_data1['userdata'][rep_author]['repped'] += 1
                     profile_data1['userdata'][chosen_user_rep]['rep'] += 1
                     json.dump(profile_data1, outfile)
                 await bot.say(f':arrow_double_up: {rep_author_mention} has repped {chosen_user2}')
                 await check_level(ctx)
-                print ('worked')
         else:
             await bot.say('You already repped someone today')
     else:
