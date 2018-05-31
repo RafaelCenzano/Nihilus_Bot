@@ -128,17 +128,19 @@ async def rep(ctx, chosen_user: discord.Member):
     with open(player_data_path, 'r') as profile_data:
         profile_data1 = json.load(profile_data)
     if rep_author in profile_data1['userdata']:
-        profile_data1['userdata'][rep_author]
-        if rep_author
-        if chosen_user_rep in profile_data1['userdata']:
-            user_credits = profile_data1['userdata'][rep_author]['credits']
-            with open(player_data_path, 'w') as outfile:
-                profile_data1['userdata'][rep_author]['repped'] += 1
-                profile_data1['userdata'][chosen_user_rep]['rep'] += 1
-                json.dump(profile_data1, outfile)
-            await bot.say(f':credit_card: {rep_author_mention} has {user_credits} credits!')
-            await check_level(ctx)
-            print ('worked')
+        check_if_repped = profile_data1['userdata'][rep_author]['repped']
+        if check_if_repped != 1
+            if chosen_user_rep in profile_data1['userdata']:
+                user_credits = profile_data1['userdata'][rep_author]['credits']
+                with open(player_data_path, 'w') as outfile:
+                    profile_data1['userdata'][rep_author]['repped'] += 1
+                    profile_data1['userdata'][chosen_user_rep]['rep'] += 1
+                    json.dump(profile_data1, outfile)
+                await bot.say(f':credit_card: {rep_author_mention} has {user_credits} credits!')
+                await check_level(ctx)
+                print ('worked')
+        else:
+            await bot.say('You already repped someone today')
     else:
         with open(player_data_path, 'w') as outfile:
             profile_data1['userdata'][credits_author] = {"daily":0, "credits":0, "level":1, "xp":0, "streak":0, "rep":0, "repped":1, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
