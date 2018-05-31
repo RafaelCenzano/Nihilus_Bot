@@ -7,7 +7,7 @@ import json
 import os
 import math
 
-bot = commands.Bot(command_prefix='.', description='testing')
+bot = commands.Bot(command_prefix='?', description='Bot with economy and other fun commands')
 player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
 
 @bot.event
@@ -16,6 +16,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+    await bot.change_presence(game=discord.Game(name="with my code"))
 
 async def check_level(ctx):
     command_author = str(ctx.message.author)
@@ -41,7 +42,7 @@ async def add_1_xp(ctx):
         command_data1['userdata'][command_author]['xp'] += 1
         json.dump(command_data1, outfile)
 
-@bot.group(pass_context=True)
+@bot.group(pass_context=True, description='punch any Discord member')
 async def punch(ctx, chosen_user: discord.Member):
     punch_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
@@ -52,6 +53,7 @@ async def punch(ctx, chosen_user: discord.Member):
         await check_level(ctx)
     else:
         await add_1_xp(ctx)
+        await check_level(ctx)
         await bot.say(':fist: {} punched {}'.format(punch_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -63,7 +65,7 @@ async def punch(ctx, chosen_user: discord.Member):
         else:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/punch4.gif')
 
-@bot.group(pass_context=True, aliases=["high5"])
+@bot.group(pass_context=True, aliases=["high5"], description='highfive any Discord member')
 async def highfive(ctx, chosen_user: discord.Member):
     highfive_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
@@ -74,6 +76,7 @@ async def highfive(ctx, chosen_user: discord.Member):
         await check_level(ctx)
     else:
         await add_1_xp(ctx)
+        await check_level(ctx)
         await bot.say(':hand_splayed: {} high fived {}'.format(highfive_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -85,7 +88,7 @@ async def highfive(ctx, chosen_user: discord.Member):
         else:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/highfive4.gif')
 
-@bot.group(pass_context=True)
+@bot.group(pass_context=True, description='slap any Discord member')
 async def slap(ctx, chosen_user: discord.Member):
     slap_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
@@ -96,6 +99,7 @@ async def slap(ctx, chosen_user: discord.Member):
         await check_level(ctx)
     else:
         await add_1_xp(ctx)
+        await check_level(ctx)
         await bot.say(':raised_back_of_hand: {} slapped {}'.format(slap_author, chosen_user2))
         random_gif = random.randint(1,12)
         if random_gif <= 3:
@@ -108,7 +112,7 @@ async def slap(ctx, chosen_user: discord.Member):
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
 
 
-@bot.group(pass_context=True)
+@bot.group(pass_context=True, description='find out if you or a friend is cool')
 async def cool(ctx, chosen_user: discord.Member):
     cool_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
@@ -122,7 +126,7 @@ async def cool(ctx, chosen_user: discord.Member):
 
 @bot.command(pass_context=True, aliases=["commands"])
 async def command():
-    await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap`\n**2. Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
+    await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap` `punch`\n**2. Economy - ** `daily` `credits` `level` `xp`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20` \n**4. Math - ** `add` `subtract` `multiply` `divide`\n')
     await check_level(ctx)
 
 @bot.command(pass_context=True, aliases=["hi"])
