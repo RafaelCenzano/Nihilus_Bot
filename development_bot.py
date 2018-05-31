@@ -129,7 +129,7 @@ async def rep(ctx, chosen_user: discord.Member):
         profile_data1 = json.load(profile_data)
     if rep_author in profile_data1['userdata']:
         check_if_repped = profile_data1['userdata'][rep_author]['repped']
-        if check_if_repped != 1
+        if check_if_repped == 0
             if chosen_user_rep in profile_data1['userdata']:
                 user_credits = profile_data1['userdata'][rep_author]['credits']
                 with open(player_data_path, 'w') as outfile:
