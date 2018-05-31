@@ -1,4 +1,4 @@
-Read If you are going to use daily commands.
+Read If you are going to use economy commands.
 
 Make sure to have json correct format at the beggining and correct file names (Use jsonlint)
 
