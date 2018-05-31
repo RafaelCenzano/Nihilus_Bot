@@ -124,19 +124,18 @@ async def rep(ctx, chosen_user: discord.Member):
     rep_author_mention = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
     chosen_user_rep = str(chosen_user)
-    print (chosen_user_rep)
     with open(player_data_path, 'r') as profile_data:
         profile_data1 = json.load(profile_data)
     if rep_author in profile_data1['userdata']:
         check_if_repped = profile_data1['userdata'][rep_author]['repped']
-        if check_if_repped == 0
+        if check_if_repped == 0:
             if chosen_user_rep in profile_data1['userdata']:
-                user_credits = profile_data1['userdata'][rep_author]['credits']
+                print ('work')
                 with open(player_data_path, 'w') as outfile:
                     profile_data1['userdata'][rep_author]['repped'] += 1
                     profile_data1['userdata'][chosen_user_rep]['rep'] += 1
                     json.dump(profile_data1, outfile)
-                await bot.say(f':credit_card: {rep_author_mention} has {user_credits} credits!')
+                await bot.say(f':arrow_double_up: {rep_author_mention} has repped {chosen_user2}')
                 await check_level(ctx)
                 print ('worked')
         else:
