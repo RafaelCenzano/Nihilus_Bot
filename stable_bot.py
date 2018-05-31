@@ -121,7 +121,7 @@ async def cool(ctx, chosen_user: discord.Member):
     await check_level(ctx)
 
 @bot.command(pass_context=True, aliases=["commands"])
-async def command():
+async def command(ctx):
     await bot.say('```md\n# Command List #\n```\n**Use prefix . when doing commands**\n**[Command Category]** Then list of commands in the categories\nUse .help [command] to find out how to use the command\nDo not include []\n**1. Core -** `highfive` `slap`\n**2. Math - ** `add` `subtract` `multiply` `divide`\n**3. Dice - ** `d4` `d6` `d8` `d10` `d12` `d20`')
     await check_level(ctx)
 
