@@ -6,7 +6,7 @@ import json
 import os
 import math
 
-bot = commands.Bot(command_prefix='?', description='Bot with economy and other fun commands')
+bot = commands.Bot(command_prefix='.', description='Bot with economy and other fun commands')
 player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
 
 @bot.event
@@ -15,7 +15,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    await bot.change_presence(game=discord.Game(name="with my code"))
+    await bot.change_presence(game=discord.Game(name="Use .commands"))
 
 async def check_level(ctx):
     command_author = str(ctx.message.author)
