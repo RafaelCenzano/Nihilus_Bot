@@ -22,7 +22,7 @@ async def check_level(ctx):
     command_author_mention = ctx.message.author.mention
     with open(player_data_path, 'r') as profile_data:
         command_data1 = json.load(profile_data)
-    if command_author in profile_data1['userdata']:
+    if command_author in command_data1['userdata']:
         if command_data1['userdata'][command_author]['xp'] >= 200:
             with open(player_data_path, 'w') as outfile:
                 command_data1['userdata'][command_author]['level'] += 1
@@ -118,6 +118,25 @@ async def slap(ctx, chosen_user: discord.Member):
         else:
             await bot.send_file(ctx.message.channel, 'Images_and_Gifs/slap4.gif')
 
+@bot.command(pass_context=True, description='check you reputation score')
+async def reputation(ctx):
+    reputation_author = str(ctx.message.author)
+    reputation_author_mention = ctx.message.author.mention
+    with open(player_data_path, 'r') as profile_data:
+        profile_data1 = json.load(profile_data)
+    if reputation_author in profile_data1['userdata']:
+        user_reputation = profile_data1['userdata'][reputation_author]['rep']
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][reputation_author]['xp'] += 1
+            json.dump(profile_data1, outfile)
+        await bot.say(f':credit_card: {reputation_author_mention} has {user_reputation} reputation!')
+        await check_level(ctx)
+    else:
+        with open(player_data_path, 'w') as outfile:
+            profile_data1['userdata'][reputation_author] = {"daily":0, "credits":0, "level":1, "xp":1, "streak":0, "rep":0, "repped":0, "armour":"nothing", "defense":0, "weapon":"fist", "damage":1}
+            json.dump(profile_data1, outfile)
+        await bot.say(f'{reputation_author_mention} has 0 reputation!')
+
 @bot.command(pass_context=True, description='rep another player to give them reputation points')
 async def rep(ctx, chosen_user: discord.Member):
     rep_author = str(ctx.message.author)
@@ -130,14 +149,12 @@ async def rep(ctx, chosen_user: discord.Member):
         check_if_repped = profile_data1['userdata'][rep_author]['repped']
         if check_if_repped == 0:
             if chosen_user_rep in profile_data1['userdata']:
-                print ('work')
                 with open(player_data_path, 'w') as outfile:
                     profile_data1['userdata'][rep_author]['repped'] += 1
                     profile_data1['userdata'][chosen_user_rep]['rep'] += 1
                     json.dump(profile_data1, outfile)
                 await bot.say(f':arrow_double_up: {rep_author_mention} has repped {chosen_user2}')
                 await check_level(ctx)
-                print ('worked')
         else:
             await bot.say('You already repped someone today')
     else:
