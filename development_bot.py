@@ -274,6 +274,11 @@ async def hello(ctx):
     await bot.say('Hello! :speech_balloon:')
     await check_level(ctx)
 
+@bot.command(pass_context=True, aliases=["hi"])
+async def hello(ctx):
+    await bot.say('Hello! :speech_balloon:')
+    await check_level(ctx)
+
 @bot.command(pass_context=True, aliases=["join", "server", "invite"], description='Get link to invite Nihilus to your server')
 async def website(ctx):
     await bot.say('The website for Nihilus\nhttps://nihilus--savagecoder77.repl.co/')
