@@ -5,6 +5,8 @@ import logging
 
 #logging config and start script log
 logging.basicConfig(filename='clear_data.log', level=logging.INFO)
+logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 logging.info('script started')
 
 #path to json file to update
