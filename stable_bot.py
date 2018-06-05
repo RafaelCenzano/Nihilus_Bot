@@ -22,7 +22,7 @@ async def check_level(ctx):
     command_author_mention = ctx.message.author.mention
     with open(player_data_path, 'r') as profile_data:
         command_data1 = json.load(profile_data)
-    if command_author in profile_data1['userdata']:
+    if command_author in command_data1['userdata']:
         if command_data1['userdata'][command_author]['xp'] >= 200:
             with open(player_data_path, 'w') as outfile:
                 command_data1['userdata'][command_author]['level'] += 1
