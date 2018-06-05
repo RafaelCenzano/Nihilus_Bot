@@ -10,7 +10,7 @@ logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.info('script started')
 
 #path to json file to update
-player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Enchanter77_Discord_Bot/Json_files/User_data.json')
+player_data_path = os.path.join('/Users/savagecoder/Desktop/Programming/Nihilus_Bot/Json_files/User_data.json')
 
 #open file to read
 with open(player_data_path, 'r') as profile_data:
