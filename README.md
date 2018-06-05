@@ -9,3 +9,6 @@ custom discord bot
 
 
 All Images will not be on Github because they are not code
+
+
+Images will be on the website soon
