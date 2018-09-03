@@ -51,6 +51,7 @@ async def add_1_xp(ctx):
 
 @bot.group(pass_context=True, description='punch any Discord member')
 async def punch(ctx, chosen_user: discord.Member):
+    print(ctx.message.author)
     punch_author = ctx.message.author.mention
     chosen_user2 = chosen_user.mention
     if chosen_user2 == punch_author:
